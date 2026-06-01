@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wall of Fame — Ugo Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #060D1F;
+  --card:        #0B1530;
+  --card-hover:  #0F1D3D;
+  --gold:        #C9A21A;
+  --gold-light:  #DDB730;
+  --gold-dim:    rgba(201,162,26,0.12);
+  --gold-glow:   rgba(201,162,26,0.08);
+  --green:       #22C55E;
+  --green-dim:   rgba(34,197,94,0.9);
+  --border:      rgba(201,162,26,0.10);
+  --border-h:    rgba(201,162,26,0.30);
+  --text:        #FFFFFF;
+  --muted:       #94A3B8;
+  --dim:         #475569;
+  --gap:         14px;
+  --r:           12px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HERO ─────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 90px 24px 64px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 700px 400px at 50% -40px, rgba(201,162,26,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 22px;
+}
+
+.hero-label::before,
+.hero-label::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+
+h1 {
+  font-size: clamp(44px, 8vw, 80px);
+  font-weight: 900;
+  letter-spacing: -3px;
+  line-height: 0.95;
+  margin-bottom: 18px;
+}
+
+h1 em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 440px;
+  margin: 0 auto 52px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+/* Stats */
+.stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.stat {
+  padding: 0 32px;
+  text-align: center;
+}
+
+.stat + .stat {
+  border-left: 1px solid var(--border);
+}
+
+.sv {
+  display: block;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.sl {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 5px;
+  letter-spacing: 0.3px;
+}
+
+/* ── GRID ─────────────────────────────────────────────────────────── */
+.wrap {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 48px 18px 80px;
+}
+
+.grid-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.grid-bar h2 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+#count {
+  font-size: 12px;
+  color: var(--dim);
+  background: rgba(255,255,255,0.04);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+/* Masonry */
+#grid {
+  columns: 3 290px;
+  column-gap: var(--gap);
+}
+
+/* ── CARD ─────────────────────────────────────────────────────────── */
+.card {
+  break-inside: avoid;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: var(--gap);
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+  position: relative;
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  cursor: default;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-h);
+  box-shadow: 0 16px 48px rgba(0,0,0,.55), 0 0 0 1px rgba(201,162,26,.12);
+}
+
+.card img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* Featured */
+.card.feat {
+  border-color: rgba(201,162,26,.35);
+  box-shadow: 0 0 0 1px rgba(201,162,26,.15), 0 8px 32px rgba(0,0,0,.4);
+}
+
+/* Coaching */
+.card.coa {
+  border-color: rgba(139,92,246,.25);
+}
+
+/* ── BADGES ───────────────────────────────────────────────────────── */
+.tag-top {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 5px;
+}
+
+.tag-feat  { background: var(--gold);              color: #000; }
+.tag-coa   { background: rgba(139,92,246,.88);     color: #fff; }
+
+.perf {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 20px;
+  letter-spacing: .2px;
+  backdrop-filter: blur(6px);
+}
+
+.perf-green { background: var(--green-dim); color: #fff; }
+.perf-gold  { background: rgba(201,162,26,.88); color: #000; }
+.perf-euro  { background: rgba(59,130,246,.85); color: #fff; }
+
+/* ── CARD FOOTER ──────────────────────────────────────────────────── */
+.cf {
+  padding: 9px 13px 10px;
+  background: var(--card);
+  border-top: 1px solid rgba(255,255,255,.04);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cf-name {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.cf-date {
+  font-size: 10px;
+  color: var(--dim);
+  white-space: nowrap;
+  flex-shrink: 0;
+  background: rgba(255,255,255,.04);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 28px 24px 40px;
+  border-top: 1px solid var(--border);
+}
+
+footer p {
+  font-size: 11px;
+  color: var(--dim);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .stat { padding: 0 20px; }
+  .sv { font-size: 24px; }
+}
+@media (max-width: 600px) {
+  h1 { letter-spacing: -2px; }
+  .stats { gap: 0; flex-direction: column; padding: 16px 0; }
+  .stat + .stat { border-left: none; border-top: 1px solid var(--border); }
+  .stat { padding: 14px 32px; }
+  #grid { columns: 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-label">Ugo Finance</div>
+  <h1>WALL OF <em>FAME</em></h1>
+  <p class="hero-sub">Résultats réels et témoignages authentiques de la communauté — du plus récent au plus ancien.</p>
+
+  <div class="stats">
+    <div class="stat"><span class="sv">40+</span><div class="sl">membres accompagnés</div></div>
+    <div class="stat"><span class="sv">+88%</span><div class="sl">meilleure performance</div></div>
+    <div class="stat"><span class="sv">+55 000€</span><div class="sl">gains en 3 mois</div></div>
+    <div class="stat"><span class="sv">100%</span><div class="sl">résultats authentiques</div></div>
+  </div>
+</header>
+
+<!-- ── GRID ──────────────────────────────────────────────────── -->
+<main class="wrap">
+  <div class="grid-bar">
+    <h2>Résultats &amp; Témoignages</h2>
+    <span id="count"></span>
+  </div>
+  <div id="grid"></div>
+</main>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <p>Les performances passées ne garantissent pas les performances futures. Les résultats varient selon les profils, les marchés et les décisions de chaque investisseur. Document fourni à titre informatif uniquement — ne constitue pas un conseil en investissement.</p>
+</footer>
+
+<script>
+const BASE = "témoignages et résultats/";
+
+// ─── DONNÉES ─────────────────────────────────────────────────────────────────
+// Ordre : plus récent en haut → plus ancien en bas
+// badge: null | "+XX%" | "+XXX€"   type: "green"|"gold"|"euro"
+// feat: true = carte vedette (bordure or)
+// coa:  true = coaching
+// label: text affiché en haut à gauche (tag)
+const data = [
+
+  // ── VEDETTE ─────────────────────────────────────────────────────────────
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 101538.png",
+    name:"Client — Gestion de portefeuille", date:"Mai 2026",
+    badge:"+88%", btype:"gold", feat:true, label:"VEDETTE"
+  },
+
+  // ── MAI 2026 ────────────────────────────────────────────────────────────
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 140738.png",
+    name:"Ugo Finance (portefeuille perso)", date:"Mai 2026",
+    badge:"+71%", btype:"gold"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 101115.png",
+    name:"Remy", date:"27 mai 2026",
+    badge:"+67%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 101134.png",
+    name:"Keyzox002", date:"29 mai 2026",
+    badge:"+58%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 101011.png",
+    name:"felicie4717", date:"22 avr. 2026",
+    badge:"+38%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 101026.png",
+    name:"Fefejoe", date:"7 mai 2026",
+    badge:"+22%", btype:"green"
+  },
+
+  // ── AVRIL 2026 ──────────────────────────────────────────────────────────
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100857.png",
+    name:"Joel", date:"20 avr. 2026",
+    badge:"+21%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100953.png",
+    name:"Valentin14&amp;€€", date:"21 avr. 2026",
+    badge:"+17%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100816.png",
+    name:"Keyzox002", date:"20 avr. 2026"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100755.png",
+    name:"Loan stry", date:"20 avr. 2026",
+    badge:"+15%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100834.png",
+    name:"layfo", date:"20 avr. 2026"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100730.png",
+    name:"Keyzox002", date:"15 avr. 2026",
+    badge:"+23%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100715.png",
+    name:"Loan stry", date:"15 avr. 2026",
+    badge:"+22%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100650.png",
+    name:"Loan stry", date:"8 avr. 2026",
+    badge:"+7%", btype:"green"
+  },
+
+  // ── FÉVRIER 2026 ────────────────────────────────────────────────────────
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100504.png",
+    name:"antho13310", date:"9 fév. 2026",
+    badge:"+43%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100520.png",
+    name:"Joel", date:"9 fév. 2026",
+    badge:"~2500€", btype:"euro"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100605.png",
+    name:"rominb17", date:"9 fév. 2026",
+    badge:"+45%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100433.png",
+    name:"Gregory", date:"9 fév. 2026",
+    badge:"+768€", btype:"euro"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100322.png",
+    name:"Valentin14&amp;€€", date:"9 fév. 2026",
+    badge:"+59%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100342.png",
+    name:"Keyzox002", date:"9 fév. 2026",
+    badge:"+19%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100452.png",
+    name:"Loan stry", date:"9 fév. 2026"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100624.png",
+    name:"Valentin14&amp;€€", date:"9 fév. 2026"
+  },
+
+  // ── JANVIER 2026 (Club) ─────────────────────────────────────────────────
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100312.png",
+    name:"Loan stry", date:"6 jan. 2026",
+    badge:"+32%", btype:"green"
+  },
+
+  // ── JANVIER 2026 (Instagram — InPost) ───────────────────────────────────
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_204138_Instagram.jpg",
+    name:"Pierre L.", date:"Jan. 2026",
+    badge:"+46%", btype:"green"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_164848_Instagram.jpg",
+    name:"Luca Rey", date:"Jan. 2026",
+    badge:"+42%", btype:"green"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_163719_Instagram.jpg",
+    name:"Hugo", date:"Jan. 2026",
+    badge:"+40%", btype:"green"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_185231_Instagram.jpg",
+    name:"Antoine", date:"Jan. 2026",
+    badge:"+44%", btype:"green"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_185618_Instagram.jpg",
+    name:"Havana Mat", date:"Jan. 2026",
+    badge:"+44%", btype:"green"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_164939_Instagram.jpg",
+    name:"Jules", date:"Jan. 2026",
+    badge:"+34%", btype:"green"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260110_221557_Instagram.jpg",
+    name:"~Yann~", date:"Jan. 2026",
+    badge:"+35%", btype:"green"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_162855_Instagram.jpg",
+    name:"louka_rb", date:"Jan. 2026",
+    badge:"+28%", btype:"green"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_164247_Instagram.jpg",
+    name:"Anonyme", date:"Jan. 2026",
+    badge:"+29%", btype:"green"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_165537_Instagram.jpg",
+    name:"Valentin", date:"Jan. 2026",
+    badge:"+20%", btype:"green"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_171254_Instagram.jpg",
+    name:"Léo Lry", date:"Jan. 2026",
+    badge:"+18%", btype:"green"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_171829_Instagram.jpg",
+    name:"oskool.prod", date:"Jan. 2026"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_170856_Instagram.jpg",
+    name:"hu.hect", date:"Jan. 2026"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_184915_Instagram.jpg",
+    name:"Baptiste Chantrel", date:"Jan. 2026"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_185830_Instagram.jpg",
+    name:"Florian Le Bris", date:"Jan. 2026"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_190355_Instagram.jpg",
+    name:"M.B.M", date:"Jan. 2026"
+  },
+  {
+    f:"Résultats instagram Inpost/Screenshot_20260109_220342_Instagram.jpg",
+    name:"rxmain_xxb", date:"Jan. 2026"
+  },
+
+  // ── DÉCEMBRE 2025 ───────────────────────────────────────────────────────
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100300.png",
+    name:"layfo", date:"Déc. 2025"
+  },
+
+  // ── OCTOBRE 2025 ────────────────────────────────────────────────────────
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100212.png",
+    name:"Keyzox002", date:"Oct. 2025",
+    badge:"+11%", btype:"green"
+  },
+  {
+    f:"Résultats Club/Capture d_écran 2026-05-31 100250.png",
+    name:"bobo", date:"Oct. 2025",
+    badge:"+13%", btype:"green"
+  },
+
+  // ── COACHING (toujours en dernier dans la liste, apparaît en dernier) ───
+  {
+    f:"Avis écrits/Avis Samuel.jpg",
+    name:"Samuel", date:"11 mai 2026",
+    coa:true, label:"COACHING"
+  },
+  {
+    f:"Avis écrits/Avis Samuel suite.jpg",
+    name:"Samuel (suite)", date:"11 mai 2026",
+    coa:true, label:"COACHING"
+  },
+];
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+const grid = document.getElementById("grid");
+document.getElementById("count").textContent = data.length + " résultats";
+
+data.forEach(item => {
+  const card = document.createElement("div");
+  card.className = "card" + (item.feat ? " feat" : "") + (item.coa ? " coa" : "");
+
+  // Image
+  const img = document.createElement("img");
+  img.src = encodeURI(BASE + item.f);
+  img.alt = item.name;
+  img.loading = "lazy";
+  card.appendChild(img);
+
+  // Top-left label
+  if (item.label) {
+    const lbl = document.createElement("div");
+    lbl.className = "tag-top " + (item.coa ? "tag-coa" : "tag-feat");
+    lbl.textContent = item.label;
+    card.appendChild(lbl);
+  }
+
+  // Performance badge
+  if (item.badge) {
+    const b = document.createElement("div");
+    b.className = "perf perf-" + (item.btype || "green");
+    b.textContent = item.badge;
+    card.appendChild(b);
+  }
+
+  // Footer
+  const cf = document.createElement("div");
+  cf.className = "cf";
+  cf.innerHTML =
+    '<span class="cf-name">' + item.name + '</span>' +
+    '<span class="cf-date">' + item.date + '</span>';
+  card.appendChild(cf);
+
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>
