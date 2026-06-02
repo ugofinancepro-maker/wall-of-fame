@@ -277,6 +277,148 @@ h1 em {
   border-radius: 4px;
 }
 
+/* ── TÉMOIGNAGES ──────────────────────────────────────────────────── */
+.temoignages {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 18px 80px;
+}
+
+.temoignages h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  margin-bottom: 8px;
+}
+
+.temoignages h2 em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.temo-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 40px;
+}
+
+.temo-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Avis écrits */
+.avis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--gap);
+  margin-bottom: 56px;
+}
+
+.avis-card {
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: transform .22s ease, border-color .22s ease;
+}
+
+.avis-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-h);
+}
+
+.avis-card img {
+  width: 100%;
+  display: block;
+}
+
+.avis-card .cf {
+  padding: 9px 13px 10px;
+}
+
+/* Vidéos */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--gap);
+}
+
+.video-card {
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: transform .22s ease, border-color .22s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201,162,26,.35);
+  box-shadow: 0 16px 48px rgba(0,0,0,.55);
+}
+
+.video-thumb {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  background: #0a1020;
+  cursor: pointer;
+}
+
+.video-thumb a {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: linear-gradient(135deg, #0a1020 0%, #0d1a35 100%);
+}
+
+.play-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s, background .2s;
+}
+
+.play-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: #000;
+  margin-left: 4px;
+}
+
+.video-thumb a:hover .play-btn {
+  transform: scale(1.12);
+  background: var(--gold-light);
+}
+
+.video-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 5px;
+  background: rgba(201,162,26,.88);
+  color: #000;
+}
+
 /* ── FOOTER ───────────────────────────────────────────────────────── */
 footer {
   text-align: center;
@@ -312,12 +454,11 @@ footer p {
 <header class="hero">
   <div class="hero-label">Ugo Finance</div>
   <h1>WALL OF <em>FAME</em></h1>
-  <p class="hero-sub">Résultats réels et témoignages authentiques de la communauté — du plus récent au plus ancien.</p>
+  <p class="hero-sub">Les résultats des membres de la communauté DEEP Invest depuis début 2026</p>
 
   <div class="stats">
-    <div class="stat"><span class="sv">40+</span><div class="sl">membres accompagnés</div></div>
-    <div class="stat"><span class="sv">+88%</span><div class="sl">meilleure performance</div></div>
-    <div class="stat"><span class="sv">+55 000€</span><div class="sl">gains en 3 mois</div></div>
+    <div class="stat"><span class="sv">70+</span><div class="sl">membres accompagnés</div></div>
+    <div class="stat"><span class="sv">150 000€+</span><div class="sl">gains totaux réalisés par la communauté</div></div>
     <div class="stat"><span class="sv">100%</span><div class="sl">résultats authentiques</div></div>
   </div>
 </header>
@@ -330,6 +471,89 @@ footer p {
   </div>
   <div id="grid"></div>
 </main>
+
+<!-- ── TÉMOIGNAGES ────────────────────────────────────────────── -->
+<section class="temoignages">
+  <h2>TÉMOI<em>GNAGES</em></h2>
+  <p class="temo-sub">Ce que disent les membres de la communauté DEEP Invest</p>
+
+  <!-- Avis écrits -->
+  <div class="temo-section-title">Avis écrits</div>
+  <div class="avis-grid">
+    <div class="avis-card">
+      <img src="témoignages et résultats/Avis écrits/Avis Samuel.jpg" alt="Avis Samuel" loading="lazy">
+      <div class="cf">
+        <span class="cf-name">Samuel</span>
+        <span class="cf-date">11 mai 2026</span>
+      </div>
+    </div>
+    <div class="avis-card">
+      <img src="témoignages et résultats/Avis écrits/Avis Samuel suite.jpg" alt="Avis Samuel suite" loading="lazy">
+      <div class="cf">
+        <span class="cf-name">Samuel (suite)</span>
+        <span class="cf-date">11 mai 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Témoignages vidéo -->
+  <div class="temo-section-title">Témoignages vidéo</div>
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="video-thumb">
+        <a href="https://drive.google.com/file/d/19VNCfH2qaEX_8cdg7mfcVR8BMZbWztaH/view" target="_blank" rel="noopener">
+          <span class="video-label">VIDÉO</span>
+          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </a>
+      </div>
+      <div class="cf">
+        <span class="cf-name">Adri — Témoignage 1</span>
+        <span class="cf-date">2026</span>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-thumb">
+        <a href="https://drive.google.com/file/d/1jAyX0klfIMK107DcP3twRsb9FvkNuK87/view" target="_blank" rel="noopener">
+          <span class="video-label">VIDÉO</span>
+          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </a>
+      </div>
+      <div class="cf">
+        <span class="cf-name">Adri — Témoignage 2</span>
+        <span class="cf-date">2026</span>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-thumb">
+        <a href="https://drive.google.com/file/d/1HYcjGnUkeFl2Pw9hkLfDrNcHIbojkCye/view" target="_blank" rel="noopener">
+          <span class="video-label">VIDÉO</span>
+          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </a>
+      </div>
+      <div class="cf">
+        <span class="cf-name">Samuel</span>
+        <span class="cf-date">2026</span>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-thumb">
+        <a href="https://drive.google.com/file/d/1gvRQ2rxYxgavV0LnqKhwGj15gIDi6xLA/view" target="_blank" rel="noopener">
+          <span class="video-label">VIDÉO</span>
+          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </a>
+      </div>
+      <div class="cf">
+        <span class="cf-name">Valentin</span>
+        <span class="cf-date">2026</span>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <!-- ── FOOTER ─────────────────────────────────────────────────── -->
 <footer>
@@ -567,17 +791,6 @@ const data = [
     badge:"+13%", btype:"green"
   },
 
-  // ── COACHING (toujours en dernier dans la liste, apparaît en dernier) ───
-  {
-    f:"Avis écrits/Avis Samuel.jpg",
-    name:"Samuel", date:"11 mai 2026",
-    coa:true, label:"COACHING"
-  },
-  {
-    f:"Avis écrits/Avis Samuel suite.jpg",
-    name:"Samuel (suite)", date:"11 mai 2026",
-    coa:true, label:"COACHING"
-  },
 ];
 
 // ─── RENDER ──────────────────────────────────────────────────────────────────
