@@ -346,7 +346,7 @@ h1 em {
 /* Vidéos */
 .video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: var(--gap);
 }
 
@@ -364,59 +364,19 @@ h1 em {
   box-shadow: 0 16px 48px rgba(0,0,0,.55);
 }
 
-.video-thumb {
+.video-embed {
   position: relative;
   width: 100%;
   padding-bottom: 56.25%;
   background: #0a1020;
-  cursor: pointer;
 }
 
-.video-thumb a {
+.video-embed iframe {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  background: linear-gradient(135deg, #0a1020 0%, #0d1a35 100%);
-}
-
-.play-btn {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: var(--gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform .2s, background .2s;
-}
-
-.play-btn svg {
-  width: 24px;
-  height: 24px;
-  fill: #000;
-  margin-left: 4px;
-}
-
-.video-thumb a:hover .play-btn {
-  transform: scale(1.12);
-  background: var(--gold-light);
-}
-
-.video-label {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 3px 9px;
-  border-radius: 5px;
-  background: rgba(201,162,26,.88);
-  color: #000;
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 /* ── FOOTER ───────────────────────────────────────────────────────── */
@@ -474,7 +434,7 @@ footer p {
 
 <!-- ── TÉMOIGNAGES ────────────────────────────────────────────── -->
 <section class="temoignages">
-  <h2>TÉMOI<em>GNAGES</em></h2>
+  <h2>TÉMOIGNAGES</h2>
   <p class="temo-sub">Ce que disent les membres de la communauté DEEP Invest</p>
 
   <!-- Avis écrits -->
@@ -501,11 +461,8 @@ footer p {
   <div class="video-grid">
 
     <div class="video-card">
-      <div class="video-thumb">
-        <a href="https://drive.google.com/file/d/19VNCfH2qaEX_8cdg7mfcVR8BMZbWztaH/view" target="_blank" rel="noopener">
-          <span class="video-label">VIDÉO</span>
-          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        </a>
+      <div class="video-embed">
+        <iframe src="https://drive.google.com/file/d/19VNCfH2qaEX_8cdg7mfcVR8BMZbWztaH/preview" allow="autoplay" allowfullscreen></iframe>
       </div>
       <div class="cf">
         <span class="cf-name">Adri — Témoignage 1</span>
@@ -514,11 +471,8 @@ footer p {
     </div>
 
     <div class="video-card">
-      <div class="video-thumb">
-        <a href="https://drive.google.com/file/d/1jAyX0klfIMK107DcP3twRsb9FvkNuK87/view" target="_blank" rel="noopener">
-          <span class="video-label">VIDÉO</span>
-          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        </a>
+      <div class="video-embed">
+        <iframe src="https://drive.google.com/file/d/1jAyX0klfIMK107DcP3twRsb9FvkNuK87/preview" allow="autoplay" allowfullscreen></iframe>
       </div>
       <div class="cf">
         <span class="cf-name">Adri — Témoignage 2</span>
@@ -527,11 +481,8 @@ footer p {
     </div>
 
     <div class="video-card">
-      <div class="video-thumb">
-        <a href="https://drive.google.com/file/d/1HYcjGnUkeFl2Pw9hkLfDrNcHIbojkCye/view" target="_blank" rel="noopener">
-          <span class="video-label">VIDÉO</span>
-          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        </a>
+      <div class="video-embed">
+        <iframe src="https://drive.google.com/file/d/1HYcjGnUkeFl2Pw9hkLfDrNcHIbojkCye/preview" allow="autoplay" allowfullscreen></iframe>
       </div>
       <div class="cf">
         <span class="cf-name">Samuel</span>
@@ -540,11 +491,8 @@ footer p {
     </div>
 
     <div class="video-card">
-      <div class="video-thumb">
-        <a href="https://drive.google.com/file/d/1gvRQ2rxYxgavV0LnqKhwGj15gIDi6xLA/view" target="_blank" rel="noopener">
-          <span class="video-label">VIDÉO</span>
-          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        </a>
+      <div class="video-embed">
+        <iframe src="https://drive.google.com/file/d/1gvRQ2rxYxgavV0LnqKhwGj15gIDi6xLA/preview" allow="autoplay" allowfullscreen></iframe>
       </div>
       <div class="cf">
         <span class="cf-name">Valentin</span>
