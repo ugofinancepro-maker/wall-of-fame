@@ -177,6 +177,33 @@ h1 em {
   column-gap: var(--gap);
 }
 
+.card-hidden { display: none; }
+
+.show-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0 8px;
+}
+
+.show-more-btn {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  color: var(--gold-light);
+  background: var(--gold-dim);
+  border: 1px solid var(--border-h);
+  border-radius: 999px;
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.show-more-btn:hover {
+  background: rgba(201,162,26,0.2);
+  transform: translateY(-2px);
+}
+
 /* ── CARD ─────────────────────────────────────────────────────────── */
 .card {
   break-inside: avoid;
@@ -430,6 +457,9 @@ footer p {
     <span id="count"></span>
   </div>
   <div id="grid"></div>
+  <div class="show-more-wrap">
+    <button id="showMoreBtn" class="show-more-btn" type="button">Afficher plus de résultats</button>
+  </div>
 </main>
 
 <!-- ── TÉMOIGNAGES ────────────────────────────────────────────── -->
@@ -812,6 +842,21 @@ data.forEach(item => {
 
   grid.appendChild(card);
 });
+
+// ─── AFFICHER PLUS ───────────────────────────────────────────────────────────
+const VISIBLE_COUNT = 5;
+const cards = Array.from(grid.children);
+const showMoreBtn = document.getElementById("showMoreBtn");
+
+if (cards.length > VISIBLE_COUNT) {
+  cards.slice(VISIBLE_COUNT).forEach(c => c.classList.add("card-hidden"));
+  showMoreBtn.addEventListener("click", () => {
+    cards.forEach(c => c.classList.remove("card-hidden"));
+    showMoreBtn.parentElement.remove();
+  });
+} else {
+  showMoreBtn.parentElement.remove();
+}
 </script>
 </body>
 </html>
