@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEEP Invest — Accès gratuit au Discord</title>
+<style>
+  :root {
+    --bg: #070D1C;
+    --surface: #101A30;
+    --surface-2: #16223D;
+    --accent: #F0973D;
+    --accent-strong: #FFAD5C;
+    --accent-dim: rgba(240,151,61,0.14);
+    --ink: #F3F6FC;
+    --ink-soft: #9AA6BE;
+    --ink-faint: #5E6B87;
+    --border: #223255;
+    --trust: #4CAF7D;
+    --danger: #E8746E;
+    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', serif;
+    --sans: -apple-system, 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); }
+  body {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  img, svg { max-width: 100%; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  section { position: relative; padding: 100px 0; }
+  section + section { border-top: 1px solid var(--border); }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .eyebrow .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(32px, 5vw, 54px); line-height: 1.1; letter-spacing: -0.01em; }
+  h2 { font-size: clamp(25px, 3.4vw, 36px); line-height: 1.16; }
+  h3 { font-size: 19px; line-height: 1.3; }
+  p { margin: 0; }
+  .lede { font-size: clamp(16px, 1.5vw, 18px); color: var(--ink-soft); line-height: 1.6; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent); color: #1A0E00; font-family: var(--sans); font-weight: 700; font-size: 15.5px;
+    padding: 15px 26px; border-radius: 999px; text-decoration: none; white-space: nowrap; border: none; cursor: pointer;
+    transition: background 150ms ease, transform 100ms ease;
+  }
+  .btn:hover { background: var(--accent-strong); transform: translateY(-1px); }
+  .btn svg { width: 16px; height: 16px; }
+  .btn-note { font-size: 12.5px; color: var(--ink-faint); margin-top: 10px; }
+
+  .hero {
+    padding: 60px 0 90px;
+    background: radial-gradient(ellipse 900px 480px at 82% -10%, rgba(240,151,61,0.16), transparent 60%), var(--bg);
+  }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
+  @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } }
+  .hero h1 { margin: 18px 0 20px; }
+  .hero .lede { margin-bottom: 26px; max-width: 46ch; }
+  .stat-row { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 30px; font-size: 13px; color: var(--ink-soft); }
+  .stat-row span { display: inline-flex; align-items: center; gap: 7px; }
+  .stat-row .pip { width: 6px; height: 6px; border-radius: 50%; background: var(--trust); flex-shrink: 0; }
+  .hero-photo { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); aspect-ratio: 3/4; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(7,13,28,0.55), transparent 40%);
+  }
+
+  .section-head { max-width: 56ch; margin-bottom: 8px; }
+  .section-head .eyebrow { margin-bottom: 14px; }
+
+  .problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 40px; }
+  @media (max-width: 700px) { .problem-grid { grid-template-columns: 1fr; } }
+  .problem-item { display: flex; gap: 12px; align-items: flex-start; padding: 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
+  .problem-item .mark { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; background: rgba(232,116,110,0.14); display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .problem-item .mark svg { width: 10px; height: 10px; stroke: var(--danger); }
+  .problem-item p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; }
+  .problem-transition { margin-top: 34px; font-family: var(--serif); font-size: 20px; color: var(--ink); }
+
+  .receive-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+  @media (max-width: 760px) { .receive-grid { grid-template-columns: 1fr; } }
+  .receive-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 26px 22px; }
+  .receive-card .ico { width: 32px; height: 32px; border-radius: 9px; background: var(--accent-dim); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .receive-card .ico svg { width: 16px; height: 16px; stroke: var(--accent); }
+  .receive-card p { color: var(--ink-soft); font-size: 14px; margin-top: 6px; }
+
+  .bio-card { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; margin-top: 40px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+  @media (max-width: 600px) { .bio-card { grid-template-columns: 1fr; text-align: center; } .bio-card .bio-photo { margin: 0 auto; } }
+  .bio-photo { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
+  .bio-card h3 { margin-bottom: 8px; }
+  .bio-card p { color: var(--ink-soft); font-size: 14.5px; line-height: 1.6; }
+
+  .qual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+  @media (max-width: 760px) { .qual-grid { grid-template-columns: 1fr; } }
+  .qual-col { border-radius: 14px; padding: 26px 24px; border: 1px solid var(--border); }
+  .qual-col.yes { background: rgba(76,175,125,0.06); }
+  .qual-col.no { background: rgba(232,116,110,0.05); }
+  .qual-title { font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+  .qual-col.yes .qual-title { color: var(--trust); }
+  .qual-col.no .qual-title { color: var(--danger); }
+  .qual-item { display: flex; gap: 10px; margin-bottom: 14px; font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+  .qual-item:last-child { margin-bottom: 0; }
+  .qual-item b { color: var(--ink); }
+  .qual-item .m { flex-shrink: 0; font-weight: 700; }
+  .qual-col.yes .m { color: var(--trust); }
+  .qual-col.no .m { color: var(--danger); }
+
+  .faq-item { border-top: 1px solid var(--border); padding: 24px 0; cursor: pointer; }
+  .faq-item:last-child { border-bottom: 1px solid var(--border); }
+  .faq-q { display: flex; justify-content: space-between; align-items: center; gap: 20px; font-family: var(--serif); font-size: 18px; }
+  .faq-a { color: var(--ink-soft); font-size: 14.5px; line-height: 1.6; margin-top: 12px; max-width: 62ch; display: none; }
+  .faq-item.open .faq-a { display: block; }
+  .faq-plus { color: var(--accent); font-size: 22px; flex-shrink: 0; font-family: var(--sans); font-weight: 300; }
+
+  .steps-list { margin-top: 40px; display: flex; flex-direction: column; }
+  .step-item { display: grid; grid-template-columns: 46px 1fr; gap: 18px; padding: 22px 0; border-top: 1px solid var(--border); }
+  .step-item:last-child { border-bottom: 1px solid var(--border); }
+  .step-num { font-family: var(--serif); font-size: 20px; color: var(--accent); }
+  .step-item h3 { margin-bottom: 5px; }
+  .step-item p { color: var(--ink-soft); font-size: 14.5px; }
+
+  .final-cta { text-align: center; background: radial-gradient(ellipse 720px 380px at 50% 0%, rgba(240,151,61,0.14), transparent 65%), var(--surface); }
+  .final-cta h2 { max-width: 20ch; margin: 0 auto 14px; }
+  .final-cta .lede { max-width: 44ch; margin: 0 auto 30px; }
+
+  /* Popup */
+  .overlay { position: fixed; inset: 0; background: rgba(4,7,16,0.72); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 50; padding: 20px; }
+  .overlay.show { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 32px; width: 100%; max-width: 420px; position: relative; }
+  .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--ink-faint); cursor: pointer; padding: 6px; }
+  .modal-close svg { width: 18px; height: 18px; }
+  .modal h3 { font-size: 21px; margin-bottom: 8px; }
+  .modal p.lede { font-size: 14px; margin-bottom: 22px; }
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12.5px; color: var(--ink-soft); margin-bottom: 6px; }
+  .field input {
+    width: 100%; background: var(--surface-2); border: 1px solid var(--border); border-radius: 9px;
+    padding: 12px 14px; color: var(--ink); font-size: 15px; font-family: var(--sans);
+  }
+  .field input:focus { outline: none; border-color: var(--accent); }
+  .modal .btn { width: 100%; justify-content: center; margin-top: 6px; }
+  .form-error { color: var(--danger); font-size: 12.5px; margin-top: -8px; margin-bottom: 12px; display: none; }
+
+  /* Next steps state */
+  .nextsteps { display: none; }
+  .nextsteps.show { display: block; }
+  .nextsteps-card { background: var(--surface); border: 1px solid var(--accent); border-radius: 16px; padding: 30px; margin-top: 20px; }
+  .nextsteps-card .ns-title { font-family: var(--serif); font-size: 22px; margin-bottom: 14px; }
+  .nextsteps-card ol { margin: 0; padding-left: 20px; color: var(--ink-soft); font-size: 14.5px; line-height: 1.9; }
+  .nextsteps-card ol b { color: var(--ink); }
+  .nextsteps-card .form-link { margin-top: 18px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>DEEP Invest — Accès gratuit</span>
+        <h1>Mes trades. Mes analyses.<br>En direct.</h1>
+        <p class="lede">Chaque position que je prends, chaque analyse que je publie — accessible gratuitement dans le Discord DEEP Invest.</p>
+        <div class="stat-row">
+          <span><span class="pip"></span>6 ans sur les marchés</span>
+          <span><span class="pip"></span>700k€ sous gestion conseillée</span>
+          <span><span class="pip"></span>Portefeuille public depuis 3 ans</span>
+        </div>
+        <button class="btn" id="openModalBtn">
+          Accéder gratuitement
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <div class="btn-note">Accès validé sous 24-48h après vérification</div>
+
+        <div class="nextsteps" id="nextsteps">
+          <div class="nextsteps-card">
+            <div class="ns-title">Prochaine étape</div>
+            <ol>
+              <li><b>Crée ton compte XTB</b> — l'onglet est déjà ouvert.</li>
+              <li><b>Dépose tes premiers fonds</b> — aucun minimum requis.</li>
+              <li><b>Remplis le formulaire</b> avec une capture d'écran de ton compte → accès validé sous 24-48h.</li>
+            </ol>
+            <div class="form-link">
+              <a class="btn" href="#" id="formLink" target="_blank" rel="noopener">
+                Remplir le formulaire
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="img/ugo.jpg" alt="Ugo, DEEP Invest">
+      </div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Le problème</span>
+      <h2>Tu reconnais ça ?</h2>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-item"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div><p>Tu achètes sans vraiment savoir si le prix est le bon.</p></div>
+      <div class="problem-item"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div><p>Tu n'as pas de méthode claire pour choisir tes actions.</p></div>
+      <div class="problem-item"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div><p>Tu suis 10 sources différentes qui se contredisent.</p></div>
+      <div class="problem-item"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div><p>Tu vends trop tôt par peur, ou trop tard par espoir.</p></div>
+      <div class="problem-item"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div><p>Tu ne sais pas structurer un portefeuille équilibré.</p></div>
+      <div class="problem-item"><div class="mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></div><p>Tu réagis aux news sans comprendre le contexte macro.</p></div>
+    </div>
+    <p class="problem-transition">C'est exactement pour ça que j'ai ouvert un accès gratuit au Discord DEEP Invest.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Ce que tu reçois</span>
+      <h2>Un accès direct, pas de blabla</h2>
+    </div>
+    <div class="receive-grid">
+      <div class="receive-card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/></svg></div>
+        <h3>Mes trades</h3>
+        <p>Quand j'achète ou je vends, et pourquoi.</p>
+      </div>
+      <div class="receive-card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12h8M8 16h5"/></svg></div>
+        <h3>Mes analyses</h3>
+        <p>Fondamentale + valorisation, en clair.</p>
+      </div>
+      <div class="receive-card">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12a4 4 0 108 0 4 4 0 00-8 0zM3 20c0-3 3-5 9-5s9 2 9 5"/></svg></div>
+        <h3>Un salon général</h3>
+        <p>Pour échanger avec d'autres investisseurs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Qui partage ça</span>
+      <h2>Ugo</h2>
+    </div>
+    <div class="bio-card">
+      <img class="bio-photo" src="img/ugo.jpg" alt="Ugo">
+      <p>6 ans sur les marchés, 700k€ sous gestion conseillée. J'ai accompagné plus de 50 clients pour restructurer leur portefeuille et viser de meilleurs rendements en bourse. Mon portefeuille est public depuis 3 ans.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Sois honnête avec toi-même</span>
+      <h2>Ce groupe est fait pour toi si...</h2>
+    </div>
+    <div class="qual-grid">
+      <div class="qual-col yes">
+        <div class="qual-title">✓ C'est pour toi</div>
+        <div class="qual-item"><span class="m">→</span><span>Tu veux voir comment un investisseur structuré prend ses décisions.</span></div>
+        <div class="qual-item"><span class="m">→</span><span>Tu es prêt à ouvrir un compte XTB pour débloquer l'accès.</span></div>
+        <div class="qual-item"><span class="m">→</span><span>Tu veux apprendre, pas juste copier aveuglément.</span></div>
+        <div class="qual-item"><span class="m">→</span><span>Tu es patient, tu ne cherches pas un coup rapide.</span></div>
+      </div>
+      <div class="qual-col no">
+        <div class="qual-title">✗ Ce n'est pas pour toi</div>
+        <div class="qual-item"><span class="m">→</span><span>Tu cherches des garanties de performance — personne ne peut en donner.</span></div>
+        <div class="qual-item"><span class="m">→</span><span>Tu veux copier des trades sans rien comprendre.</span></div>
+        <div class="qual-item"><span class="m">→</span><span>Tu n'es pas prêt à investir un minimum de temps pour apprendre.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Questions fréquentes</span>
+      <h2>Ce que tu te demandes probablement</h2>
+    </div>
+    <div style="margin-top:36px;" id="faqList">
+      <div class="faq-item">
+        <div class="faq-q"><span>Pourquoi faut-il créer un compte XTB ?</span><span class="faq-plus">+</span></div>
+        <p class="faq-a">C'est la condition d'accès au salon gratuit du Discord — ça permet de garder une communauté engagée plutôt qu'un salon ouvert à tout le monde sans filtre.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Il y a un montant minimum à déposer ?</span><span class="faq-plus">+</span></div>
+        <p class="faq-a">Non, aucun minimum.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>À quelle fréquence tu partages des trades et des analyses ?</span><span class="faq-plus">+</span></div>
+        <p class="faq-a">Régulièrement, dès que j'ouvre une position ou que j'ai une analyse à partager.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Tu garantis des résultats ?</span><span class="faq-plus">+</span></div>
+        <p class="faq-a">Non — personne ne peut garantir de performance en bourse.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Et si je ne veux pas continuer après ?</span><span class="faq-plus">+</span></div>
+        <p class="faq-a">Aucun souci. L'accès au salon gratuit ne t'engage à rien de plus.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Comment accéder</span>
+      <h2>3 étapes, quelques minutes</h2>
+    </div>
+    <div class="steps-list">
+      <div class="step-item"><div class="step-num">01</div><div><h3>Crée ton compte XTB</h3><p>Via le lien, dans un nouvel onglet.</p></div></div>
+      <div class="step-item"><div class="step-num">02</div><div><h3>Dépose tes premiers fonds</h3><p>Aucun minimum requis.</p></div></div>
+      <div class="step-item"><div class="step-num">03</div><div><h3>Remplis le formulaire</h3><p>Avec une capture d'écran → accès validé sous 24-48h.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <h2>Prêt à voir ce qui se passe en coulisses ?</h2>
+    <p class="lede">Gratuit. Sans engagement au-delà de l'ouverture de compte.</p>
+    <button class="btn" id="openModalBtn2">
+      Accéder gratuitement
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="modal-close" id="closeModalBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <h3>Presque prêt</h3>
+    <p class="lede">Laisse-moi tes coordonnées, on te recontacte pour finaliser l'accès si besoin.</p>
+    <div class="field">
+      <label for="prenom">Prénom</label>
+      <input type="text" id="prenom" placeholder="Ton prénom">
+    </div>
+    <div class="field">
+      <label for="telephone">Téléphone (WhatsApp)</label>
+      <input type="tel" id="telephone" placeholder="06 12 34 56 78">
+    </div>
+    <div class="form-error" id="formError">Merci de remplir les deux champs.</div>
+    <button class="btn" id="submitBtn">
+      Continuer vers XTB
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // ── Configuration ──
+  const XTB_LINK = 'https://geolink.xtb.com/WwraK';
+  const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1516110377719562438/3VRPRSsUkqU35TxeGcc2ZQGZDQ3vkfwEhhme9yhQTvtK3Hp2w0bOpCpNJ_SKpiZOoLFD';
+  const SHEET_WEBHOOK = 'https://script.google.com/macros/s/AKfycbwXA3Cqd60JuiD5rgoO91sRGB8kS0FR_LSTBNS4RRdOYuYWAQP2etWq0F3lnn-AFO0h1A/exec';
+  const GOOGLE_FORM_LINK = 'https://forms.gle/REMPLACER-PAR-LE-LIEN-DU-FORMULAIRE'; // [LIEN GOOGLE FORM — À REMPLACER]
+
+  const overlay = document.getElementById('overlay');
+  const openBtns = [document.getElementById('openModalBtn'), document.getElementById('openModalBtn2')];
+  const closeBtn = document.getElementById('closeModalBtn');
+  const submitBtn = document.getElementById('submitBtn');
+  const prenomInput = document.getElementById('prenom');
+  const telInput = document.getElementById('telephone');
+  const formError = document.getElementById('formError');
+  const nextsteps = document.getElementById('nextsteps');
+  const formLink = document.getElementById('formLink');
+
+  formLink.href = GOOGLE_FORM_LINK;
+
+  openBtns.forEach(btn => btn && btn.addEventListener('click', () => {
+    overlay.classList.add('show');
+  }));
+  closeBtn.addEventListener('click', () => overlay.classList.remove('show'));
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('show'); });
+
+  submitBtn.addEventListener('click', async () => {
+    const prenom = prenomInput.value.trim();
+    const telephone = telInput.value.trim();
+    if (!prenom || !telephone) {
+      formError.style.display = 'block';
+      return;
+    }
+    formError.style.display = 'none';
+    submitBtn.disabled = true;
+
+    // Notify Discord (real-time alert for the setter)
+    fetch(DISCORD_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        content: `🔔 **Nouveau lead — a cliqué "Créer mon compte XTB"**\n**Prénom :** ${prenom}\n**Téléphone :** ${telephone}`
+      })
+    }).catch(() => {});
+
+    // Record in the CRM Sheet
+    fetch(SHEET_WEBHOOK, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ prenom, telephone })
+    }).catch(() => {});
+
+    // Open XTB in a new tab, keep this page open
+    window.open(XTB_LINK, '_blank', 'noopener');
+
+    // Switch to next-steps state
+    overlay.classList.remove('show');
+    nextsteps.classList.add('show');
+    document.getElementById('openModalBtn').style.display = 'none';
+    document.querySelector('.btn-note').style.display = 'none';
+    nextsteps.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    submitBtn.disabled = false;
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => item.classList.toggle('open'));
+  });
+</script>
+</body>
+</html>
