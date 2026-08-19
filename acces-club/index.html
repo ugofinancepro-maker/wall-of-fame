@@ -203,6 +203,27 @@
   </div>
 </div>
 
+<section id="howitworks">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Comment ça marche</span>
+      <h2>3 étapes, quelques minutes</h2>
+      <p class="lede" style="margin-top:14px;">Déjà créé ton compte XTB ? Passe directement au formulaire, pas besoin de tout refaire.</p>
+    </div>
+    <div class="steps-list">
+      <div class="step-item"><div class="step-num">01</div><div><h3>Crée ton compte XTB</h3><p>Clique sur "Accéder gratuitement" ci-dessus, un nouvel onglet s'ouvre.</p></div></div>
+      <div class="step-item"><div class="step-num">02</div><div><h3>Dépose tes premiers fonds</h3><p>Aucun minimum requis.</p></div></div>
+      <div class="step-item"><div class="step-num">03</div><div><h3>Remplis le formulaire</h3><p>Avec une capture d'écran de ton compte → accès Discord validé sous 24-48h.</p></div></div>
+    </div>
+    <div style="margin-top:30px;">
+      <a class="btn" href="#" id="formLinkTop" target="_blank" rel="noopener">
+        Remplir le formulaire maintenant
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
 <section>
   <div class="wrap">
     <div class="section-head">
@@ -315,20 +336,6 @@
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow"><span class="dot"></span>Comment accéder</span>
-      <h2>3 étapes, quelques minutes</h2>
-    </div>
-    <div class="steps-list">
-      <div class="step-item"><div class="step-num">01</div><div><h3>Crée ton compte XTB</h3><p>Via le lien, dans un nouvel onglet.</p></div></div>
-      <div class="step-item"><div class="step-num">02</div><div><h3>Dépose tes premiers fonds</h3><p>Aucun minimum requis.</p></div></div>
-      <div class="step-item"><div class="step-num">03</div><div><h3>Remplis le formulaire</h3><p>Avec une capture d'écran → accès validé sous 24-48h.</p></div></div>
-    </div>
-  </div>
-</section>
-
 <section class="final-cta">
   <div class="wrap">
     <h2>Prêt à voir ce qui se passe en coulisses ?</h2>
@@ -377,8 +384,10 @@
   const formError = document.getElementById('formError');
   const nextsteps = document.getElementById('nextsteps');
   const formLink = document.getElementById('formLink');
+  const formLinkTop = document.getElementById('formLinkTop');
 
   formLink.href = GOOGLE_FORM_LINK;
+  formLinkTop.href = GOOGLE_FORM_LINK;
 
   openBtns.forEach(btn => btn && btn.addEventListener('click', () => {
     overlay.classList.add('show');
